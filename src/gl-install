@@ -2,6 +2,7 @@
 
 use strict;
 use warnings;
+use FindBin;
 
 our ($REPO_BASE, $GL_ADMINDIR, $GL_CONF, $GIT_PATH);
 
@@ -22,9 +23,8 @@ sub wrap_mkdir
 }
 
 # the common setup module is in the same directory as this running program is
-my $bindir = $0;
-$bindir =~ s/\/[^\/]+$//;
-require "$bindir/gitolite.pm";
+use lib "$FindBin::Bin";
+use gitolite;
 
 # ask where the rc file is, get it, and "do" it
 &where_is_rc();

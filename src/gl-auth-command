@@ -2,6 +2,7 @@
 
 use strict;
 use warnings;
+use FindBin;
 
 # === auth-command ===
 # the command that GL users actually run
@@ -30,9 +31,9 @@ our ($R_COMMANDS, $W_COMMANDS, $REPONAME_PATT, $REPOPATT_PATT);
 our %repos;
 
 # the common setup module is in the same directory as this running program is
-my $bindir = $0;
-$bindir =~ s/\/[^\/]+$//;
-require "$bindir/gitolite.pm";
+
+use lib "$FindBin::Bin";
+use gitolite;
 
 # ask where the rc file is, get it, and "do" it
 &where_is_rc();
@@ -40,7 +41,7 @@ die "parse $ENV{GL_RC} failed: "       . ($! or $@) unless do $ENV{GL_RC};
 
 # we need to pass GL_ADMINDIR and the bindir to the child hooks
 $ENV{GL_ADMINDIR} = $GL_ADMINDIR;
-$ENV{GL_BINDIR} = $bindir;
+$ENV{GL_BINDIR} = "$FindBin::Bin";
 
 # add a custom path for git binaries, if specified
 $ENV{PATH} .= ":$GIT_PATH" if $GIT_PATH;
