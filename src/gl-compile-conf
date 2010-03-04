@@ -2,6 +2,7 @@
 
 use strict;
 use warnings;
+use FindBin;
 use Data::Dumper;
 $Data::Dumper::Indent = 1;
 $Data::Dumper::Sortkeys = 1;
@@ -66,9 +67,8 @@ our ($GL_ADMINDIR, $GL_CONF, $GL_KEYDIR, $GL_CONF_COMPILED, $REPO_BASE, $REPO_UM
 our ($REPONAME_PATT, $REPOPATT_PATT, $USERNAME_PATT, $AUTH_COMMAND, $AUTH_OPTIONS, $ABRT, $WARN);
 
 # the common setup module is in the same directory as this running program is
-my $bindir = $0;
-$bindir =~ s/\/[^\/]+$//;
-require "$bindir/gitolite.pm";
+use lib "$FindBin::Bin";
+use gitolite;
 
 # ask where the rc file is, get it, and "do" it
 &where_is_rc();
