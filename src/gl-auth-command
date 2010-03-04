@@ -31,7 +31,6 @@ our ($R_COMMANDS, $W_COMMANDS, $REPONAME_PATT, $REPOPATT_PATT);
 our %repos;
 
 # the common setup module is in the same directory as this running program is
-
 use lib "$FindBin::Bin";
 use gitolite;
 
